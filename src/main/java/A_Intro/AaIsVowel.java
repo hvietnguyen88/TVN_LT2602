@@ -5,11 +5,11 @@ package A_Intro;
  */
 public class AaIsVowel {
     /**
-     * Determines whether the given input is a single vowel character (case-insensitive).
+     * Determines whether the given inputString is a single vowel character (case-insensitive).
      *
-     * @param input a String containing exactly one character to check
-     * @return true if input is a single vowel (a, e, i, o, u), false otherwise
-     * @throws NullPointerException if input is null (handled gracefully, returns false)
+     * @param inputString a String containing exactly one character to check
+     * @return true if inputString is a single vowel (a, e, i, o, u), false otherwise
+     * @throws NullPointerException if inputString is null (handled gracefully, returns false)
 
      * Examples:
      * <ul>
@@ -21,10 +21,10 @@ public class AaIsVowel {
      *   <li>isVowel("") returns false (empty string)</li>
      * </ul>
      */
-    public static boolean isVowel(String input) {
-        if (input == null || input.length() != 1) {
+    public static boolean isVowel(String inputString) {
+        if (inputString == null || inputString.length() != 1) {
             return false;
         }
-        return input.toLowerCase().matches("[aeiou]");
+        return inputString.toLowerCase().matches("[aeiou]");
     }
 }
