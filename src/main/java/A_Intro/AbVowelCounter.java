@@ -33,9 +33,10 @@ public class AbVowelCounter {
         if (inputString == null) {
             return 0;
         }
+
         int count = 0;
-        for (int i = 0; i < inputString.length(); i++) {
-            if (AaIsVowel.isVowel(String.valueOf(inputString.charAt(i)))) {
+        for (char c : inputString.toCharArray()) {
+            if (AaIsVowel.isVowel(String.valueOf(c))) {
                 count++;
             }
         }

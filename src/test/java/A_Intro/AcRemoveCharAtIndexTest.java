@@ -1,86 +1,67 @@
 package A_Intro;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit tests for {@link AcRemoveCharAtIndex#removeCharAtIndex(String, int)}.
- *
- * <p>Tests are grouped by behaviour: standard removal cases and edge cases
- * (empty string, whitespace, and {@code null} input).</p>
  */
-public class AcRemoveCharAtIndexTest {
+@DisplayName("AcRemoveCharAtIndex")
+class AcRemoveCharAtIndexTest {
 
-    /**
-     * Verifies that the character at index 0 (first character) is correctly removed.
-     */
-    @Test
-    public void removesFirstChar() {
-        String result = AcRemoveCharAtIndex.removeCharAtIndex("Hello", 0);
-        Assert.assertEquals("ello", result);
+    @Nested
+    @DisplayName("Standard cases")
+    class StandardCases {
+
+        @ParameterizedTest(name = "removeCharAtIndex(\"{0}\", {1}) == \"{2}\"")
+        @CsvSource({
+                "Hello, 0, ello",   // remove first char
+                "java,  2, jaa",    // remove middle char
+                "Hello, 4, Hell"    // remove last char
+        })
+        @DisplayName("Removes the character at the given index")
+        void removesCharAtIndex(String input, int index, String expected) {
+            assertEquals(expected, AcRemoveCharAtIndex.removeCharAtIndex(input, index));
+        }
     }
 
-    /**
-     * Verifies that a character at a middle index is correctly removed.
-     */
-    @Test
-    public void removesMiddleChar() {
-        String result = AcRemoveCharAtIndex.removeCharAtIndex("java", 2);
-        Assert.assertEquals("jaa", result);
-    }
+    @Nested
+    @DisplayName("Edge cases")
+    class EdgeCases {
 
-    /**
-     * Verifies that the last character is correctly removed.
-     */
-    @Test
-    public void removesLastChar() {
-        String result = AcRemoveCharAtIndex.removeCharAtIndex("Education", 8);
-        Assert.assertEquals("Educatio", result);
-    }
+        @Test
+        @DisplayName("Empty string returns empty string")
+        void emptyStringReturnsEmpty() {
+            assertEquals("", AcRemoveCharAtIndex.removeCharAtIndex("", 0));
+        }
 
-    /**
-     * Verifies that an out-of-bounds index (>= string length) returns the original string.
-     */
-    @Test
-    public void indexTooLargeReturnsOriginal() {
-        String result = AcRemoveCharAtIndex.removeCharAtIndex("Hello", 5);
-        Assert.assertEquals("Hello", result);
-    }
+        @Test
+        @DisplayName("Null input returns empty string")
+        void nullInputReturnsEmpty() {
+            assertEquals("", AcRemoveCharAtIndex.removeCharAtIndex(null, 0));
+        }
 
-    /**
-     * Verifies that a negative index returns the original string unmodified.
-     */
-    @Test
-    public void negativeIndexReturnsOriginal() {
-        String result = AcRemoveCharAtIndex.removeCharAtIndex("Hello", -1);
-        Assert.assertEquals("Hello", result);
-    }
+        @Test
+        @DisplayName("Whitespace string removes one space at index")
+        void whitespaceStringRemovesOneSpace() {
+            assertEquals("  ", AcRemoveCharAtIndex.removeCharAtIndex("   ", 2));
+        }
 
-    /**
-     * Verifies that an empty string input returns an empty string.
-     */
-    @Test
-    public void emptyStringReturnsEmpty() {
-        String result = AcRemoveCharAtIndex.removeCharAtIndex("", 0);
-        Assert.assertEquals("", result);
-    }
+        @Test
+        @DisplayName("Index >= length returns original string")
+        void indexTooLargeReturnsOriginal() {
+            assertEquals("Hello", AcRemoveCharAtIndex.removeCharAtIndex("Hello", 5));
+        }
 
-    /**
-     * Verifies that a whitespace-only string is treated as a normal string —
-     * one space is removed at the given index, returning the remaining spaces.
-     */
-    @Test
-    public void whitespaceStringRemovesOneSpace() {
-        String result = AcRemoveCharAtIndex.removeCharAtIndex("   ", 2);
-        Assert.assertEquals("  ", result); // 3 spaces → 2 spaces
-    }
-
-    /**
-     * Verifies that a {@code null} input returns an empty string.
-     */
-    @Test
-    public void nullInputReturnsEmpty() {
-        String result = AcRemoveCharAtIndex.removeCharAtIndex(null, 0);
-        Assert.assertEquals("", result);
+        @Test
+        @DisplayName("Negative index returns original string")
+        void negativeIndexReturnsOriginal() {
+            assertEquals("Hello", AcRemoveCharAtIndex.removeCharAtIndex("Hello", -1));
+        }
     }
 }

@@ -5,6 +5,8 @@ package A_Intro;
  *
  * <p>This class provides methods for modifying strings based on character
  * position, such as removing a character at a specified index.</p>
+ *
+ * {@link AcRemoveCharAtIndex#removeCharAtIndex(String, int)}.
  */
 public class AcRemoveCharAtIndex {
 
